@@ -16,6 +16,7 @@ class Amqpcat
       :ssl_key => nil,
       :ssl_cert => nil,
       :verify_ssl => true,
+      :user_type => '',
     }.merge(options)
 
     @amqp_settings.merge!(@opts)
@@ -24,7 +25,7 @@ class Amqpcat
   end
 
   def publish(msg)
-    exchange.publish(msg, :persistent => @opts[:persistent], :key => @opts[:routing_key])
+    exchange.publish(msg, :persistent => @opts[:persistent], :key => @opts[:routing_key], :type => @opts[:user_type], :content_type => @opts[:content_type])
   end
 
   def message_count
